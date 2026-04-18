@@ -22,5 +22,7 @@ public:
 	Block();
 	void Draw();
 	void Move(int rows, int column);
+	void Rotate();
+	void UndoRotation();
 	vector<Position> GetCellPositions();
 };

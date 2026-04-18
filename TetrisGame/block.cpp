@@ -31,6 +31,24 @@ void Block::Move(int rows, int column)
 {
 	rowOffset += rows;
 	columnOffset += column;
+}
+void Block::Rotate()
+{
+	rotationState++;
+
+	if (rotationState == (int)cells.size())
+	{
+		rotationState = 0;
+	}
+}
+void Block::UndoRotation()
+{
+	rotationState--;
+
+	if (rotationState == -1)
+	{
+		rotationState = cells.size() - 1;
+	}
 };
 
 vector<Position> Block::GetCellPositions()
@@ -40,8 +58,10 @@ vector<Position> Block::GetCellPositions()
 
 	for (Position item : tiles)
 	{
+
 		Position newPos = Position(item.row + rowOffset, item.column + columnOffset);
 		movedTiles.push_back(newPos);
+
 	}
 
 	return movedTiles;

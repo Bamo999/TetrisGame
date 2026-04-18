@@ -13,7 +13,7 @@ public:
 		Move(0, 3);
 		cells[0] =
 		{
-			Pos{0, 2},
+			Pos{0, 1},
 			Pos{1, 0},
 			Pos{1, 1},
 			Pos{1, 2},
@@ -208,7 +208,7 @@ public:
 		id = 7;
 		Move(0, 3);
 		cells[0] = {
-			Pos{0, 1},
+			Pos{0, 0},
 			Pos{0, 1},
 			Pos{1, 1},
 			Pos{1, 2},

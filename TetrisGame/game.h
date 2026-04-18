@@ -10,11 +10,16 @@ private:
 	vector<Block> blocks;
 	Block currentBlock;
 	Block nextBlock;
-
+	bool IsBlockOutside();
+	void RotateBlock();
 public:
 	Game();
 	Block GetRandomBlock();
 	vector<Block> GetAllBlocks();
 	void Draw();
 	Grid grid;
+	void HandleInput();
+	void MoveBlockLeft();
+	void MoveBlockRight();
+	void MoveBlockDown();
 };
