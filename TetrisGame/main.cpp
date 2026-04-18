@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <raylib.h>
-#include "grid.h"
-#include "blocks.h"
+#include "game.h"
 
 using std::cout;
 using std::string;
@@ -26,17 +25,7 @@ int main()
     const int FPS = 60;
     SetTargetFPS(FPS);
 
-    Grid grid = Grid();
-
-    /*
-    grid.grid[0][0] = 1;
-    grid.grid[3][5] = 4;
-    grid.grid[17][8] = 7;
-    */
-
-    grid.Print();
-
-    IBlock block = IBlock();
+    Game game = Game();
 
     while (WindowShouldClose() == false) {
 
@@ -44,8 +33,7 @@ int main()
 
         ClearBackground(DarkBlue);
 
-        grid.Draw();
-        block.Draw();
+        game.Draw();
 
         EndDrawing();
 
