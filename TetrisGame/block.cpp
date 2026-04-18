@@ -7,13 +7,15 @@ Block::Block()
 	rotationState = 0;
 	colors = GetCellColor();
 	id = 0;
+	rowOffset = 0;
+	columnOffset = 0;
 }
 
-void Block::Draw() 
+void Block::Draw()
 {
-	vector<Position> tiles = cells[rotationState];
+	vector<Position> tiles = GetCellPositions();
 
-	for (Position item : tiles) 
+	for (Position item : tiles)
 	{
 		DrawRectangle(
 			item.column * cellSize + 1,
@@ -23,4 +25,24 @@ void Block::Draw()
 			colors[id]
 		);
 	}
+};
+
+void Block::Move(int rows, int column)
+{
+	rowOffset += rows;
+	columnOffset += column;
+};
+
+vector<Position> Block::GetCellPositions()
+{
+	vector<Position> tiles = cells[rotationState];
+	vector<Position> movedTiles;
+
+	for (Position item : tiles)
+	{
+		Position newPos = Position(item.row + rowOffset, item.column + columnOffset);
+		movedTiles.push_back(newPos);
+	}
+
+	return movedTiles;
 }
