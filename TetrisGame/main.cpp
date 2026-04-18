@@ -36,7 +36,7 @@ int main()
 
     grid.Print();
 
-    LBlock block = LBlock();
+    IBlock block = IBlock();
 
     while (WindowShouldClose() == false) {
 
