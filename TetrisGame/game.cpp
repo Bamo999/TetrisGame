@@ -8,6 +8,7 @@ Game::Game()
 	blocks = GetAllBlocks();
 	currentBlock = GetRandomBlock();
 	nextBlock = GetRandomBlock();
+	gameOver = false;
 
 	std::cout << currentBlock.id << std::endl;
 	std::cout << nextBlock.id << std::endl;
@@ -75,21 +76,6 @@ void Game::HandleInput()
 	}
 }
 
-void Game::LockBlock()
-{
-	vector<Position> tiles = currentBlock.GetCellPositions();
-
-	for (Position item : tiles) 
-	{
-		grid.grid[item.row][item.column] = currentBlock.id;
-	}
-
-	currentBlock = nextBlock;
-	nextBlock = GetRandomBlock();
-
-	grid.ClearFullRows();
-}
-
 bool Game::BlockFits()
 {
 
@@ -106,46 +92,78 @@ bool Game::BlockFits()
 	return true;
 }
 
+void Game::LockBlock()
+{
+	vector<Position> tiles = currentBlock.GetCellPositions();
+
+	for (Position item : tiles) 
+	{
+		grid.grid[item.row][item.column] = currentBlock.id;
+	}
+
+	currentBlock = nextBlock;
+
+	if (BlockFits() == false)
+	{
+		gameOver = true;
+	}
+
+	nextBlock = GetRandomBlock();
+
+	grid.ClearFullRows();
+}
+
 void Game::RotateBlock()
 {
-	currentBlock.Rotate();
-
-	if (IsBlockOutside() || BlockFits() == false)
+	if (!gameOver) 
 	{
-		currentBlock.UndoRotation();
+		currentBlock.Rotate();
+
+		if (IsBlockOutside() || BlockFits() == false)
+		{
+			currentBlock.UndoRotation();
+		}
 	}
 }
 
 void Game::MoveBlockLeft()
 {
-
-	currentBlock.Move(0, -1);
-
-	if (IsBlockOutside() || BlockFits() == false)
+	if (!gameOver) 
 	{
-		currentBlock.Move(0, 1);
+		currentBlock.Move(0, -1);
+
+		if (IsBlockOutside() || BlockFits() == false)
+		{
+			currentBlock.Move(0, 1);
+		}
 	}
 }
 
 void Game::MoveBlockRight()
 {
-
-	currentBlock.Move(0, 1);
-
-	if (IsBlockOutside() || BlockFits() == false)
+	if (!gameOver) 
 	{
-		currentBlock.Move(0, -1);
+		currentBlock.Move(0, 1);
+
+		if (IsBlockOutside() || BlockFits() == false)
+		{
+			currentBlock.Move(0, -1);
+		}
 	}
+
 }
 
 void Game::MoveBlockDown()
 {
-
-	currentBlock.Move(1, 0);
-
-	if (IsBlockOutside() || BlockFits() == false)
+	if (!gameOver)
 	{
-		currentBlock.Move(-1, 0);
-		LockBlock();
+		currentBlock.Move(1, 0);
+
+		if (IsBlockOutside() || BlockFits() == false)
+		{
+			currentBlock.Move(-1, 0);
+			LockBlock();
+		}
 	}
+	
 }

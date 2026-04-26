@@ -15,13 +15,14 @@ private:
 	void LockBlock();
 	bool BlockFits();
 public:
-	Game();
-	Block GetRandomBlock();
-	vector<Block> GetAllBlocks();
-	void Draw();
 	Grid grid;
+	bool gameOver;
+	Game();
+	void Draw();
 	void HandleInput();
 	void MoveBlockLeft();
 	void MoveBlockRight();
 	void MoveBlockDown();
+	Block GetRandomBlock();
+	vector<Block> GetAllBlocks();
 };

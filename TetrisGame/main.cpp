@@ -4,6 +4,7 @@
 #include <iostream>
 #include <raylib.h>
 #include "game.h"
+#include "colors.h"
 
 using std::cout;
 using std::string;
@@ -34,11 +35,13 @@ int main()
 {
     cout << "My tetris game!\n";
 
-    const int screen_width = 300, screen_height = 600;
+    const int screen_width = 500, screen_height = 620;
     InitWindow(screen_width, screen_height, "Bamo's Tetris's game");
 
     const int FPS = 60;
     SetTargetFPS(FPS);
+
+    Font RobotoFont = LoadFontEx("Assets/Roboto-SemiBold.ttf", 64, 0, 0);
 
     Game game = Game();
 
@@ -54,6 +57,17 @@ int main()
         BeginDrawing();
 
         ClearBackground(DarkBlue);
+
+        DrawTextEx(RobotoFont, "Score", { 365, 15 }, 38, 2, WHITE);
+        DrawRectangleRounded({ 320, 55, 170, 60 }, 0.3, 6, lightBlue);
+
+        DrawTextEx(RobotoFont, "Next", { 370, 175 }, 38, 2, WHITE);
+        DrawRectangleRounded({ 320, 215, 170, 180 }, 0.3, 6, lightBlue);
+
+        if (game.gameOver) 
+        {
+            DrawTextEx(RobotoFont, "GAME OVER!", { 320, 420 }, 38, 2, WHITE);
+        }
 
         game.Draw();
 
